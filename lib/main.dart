@@ -14,7 +14,7 @@ class Quizzler extends StatelessWidget {
         backgroundColor: Colors.grey.shade900,
         body: const SafeArea(
           child: Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: EdgeInsets.symmetric(horizontal: 10.0),
             child: QuizPage(),
           ),
         ),
@@ -38,11 +38,14 @@ class _QuizPageState extends State<QuizPage> {
       children: [
         Expanded(
           flex: 4,
-          child: Text(
-            'The place where text will be',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 24.0,
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text(
+              'The place where text will be',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 25.0,
+              ),
             ),
           ),
         ),
