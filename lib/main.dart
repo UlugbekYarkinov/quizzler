@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'quiz_brain.dart';
+
+QuestionBrain questionBrain = QuestionBrain();
 
 void main() {
   runApp(const Quizzler());
@@ -41,7 +44,8 @@ class _QuizPageState extends State<QuizPage> {
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Text(
-              'The place where text will be',
+              questionBrain.questionBank[0].getQuestionText(),  //TODO: change this access modifier
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 25.0,
