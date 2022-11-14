@@ -1,7 +1,9 @@
 import 'question.dart';
 
 class QuestionBrain {
-  List<Question> questionBank = [ //TODO: make it private
+  int _questionNumber = 0;
+
+  final List<Question> _questionBank = [
     Question(
         text: 'Some cats are actually allergic to humans',
         answer: true),
@@ -21,31 +23,54 @@ class QuestionBrain {
         text: 'It is illegal to pee in the Ocean in Portugal.',
         answer: true),
     Question(
-        text:
-        'No piece of square dry paper can be folded in half more than 7 times.',
+        text: 'No piece of square dry paper can be folded in half more than 7 times.',
         answer: false),
     Question(
-        text:
-        'In London, UK, if you happen to die in the House of Parliament, you are technically entitled to a state funeral, because the building is considered too sacred a place.',
+        text: 'In London, UK, if you happen to die in the House of Parliament, you are technically entitled to a state funeral, because the building is considered too sacred a place.',
         answer: true),
     Question(
         text:
         'The loudest sound produced by any animal is 188 decibels. That animal is the African Elephant.',
         answer: false),
     Question(
-        text:
-        'The total surface area of two human lungs is approximately 70 square metres.',
+        text: 'The total surface area of two human lungs is approximately 70 square metres.',
         answer: true),
     Question(
         text: 'Google was originally called \"Backrub\".',
         answer: true),
     Question(
-        text:
-        'Chocolate affects a dog\'s heart and nervous system; a few ounces are enough to kill a small dog.',
+        text: 'Chocolate affects a dog\'s heart and nervous system; a few ounces are enough to kill a small dog.',
         answer: true),
     Question(
-        text:
-        'In West Virginia, USA, if you accidentally hit an animal with your car, you are free to take it home to eat.',
+        text: 'In West Virginia, USA, if you accidentally hit an animal with your car, you are free to take it home to eat.',
         answer: true),
   ];
+
+  void nextQuestion() {
+    if(_questionNumber < _questionBank.length - 1) {
+      _questionNumber++;
+    } else {
+      _questionNumber = 0;
+    }
+  }
+  bool isFinished() {
+    if(_questionNumber >= _questionBank.length -1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  String getQuestionText() {
+    return _questionBank[_questionNumber].getQuestionText();
+  }
+  bool getQuestionAnswer() {
+    return _questionBank[_questionNumber].getQuestionAnswer();
+  }
+  int getQuestionNumber() {
+    return _questionNumber;
+  }
+  int getNumberOfQuestions() {
+    return _questionBank.length;
+  }
 }

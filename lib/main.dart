@@ -44,9 +44,9 @@ class _QuizPageState extends State<QuizPage> {
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Text(
-              questionBrain.questionBank[0].getQuestionText(),  //TODO: change this access modifier
+              questionBrain.getQuestionText(),
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 25.0,
               ),
@@ -61,7 +61,11 @@ class _QuizPageState extends State<QuizPage> {
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      questionBrain.nextQuestion();
+                    });
+                  },
                   style: TextButton.styleFrom(
                     backgroundColor: Colors.green,
                   ),
