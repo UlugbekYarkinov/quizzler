@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'quiz_brain.dart';
 
@@ -34,6 +36,38 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  List<Icon> scoreKeeper = [];
+  int scoreCounter = 0;
+
+  void checkAnswer(bool pickedAnswer) {
+    bool questionAnswer = questionBrain.getQuestionAnswer();
+
+    setState(() {
+      if(questionBrain.isFinished()) {
+        scoreKeeper = [];
+        scoreCounter = 0;
+      } else {
+        if(questionAnswer == pickedAnswer) {
+          scoreCounter++;
+          scoreKeeper.add(
+              const Icon(
+                Icons.check,
+                color: Colors.green,
+              )
+          );
+        } else {
+          scoreKeeper.add(
+              const Icon(
+                Icons.close,
+                color: Colors.red,
+              )
+          );
+        }
+      }
+      questionBrain.nextQuestion();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -62,9 +96,7 @@ class _QuizPageState extends State<QuizPage> {
                 padding: const EdgeInsets.all(15.0),
                 child: TextButton(
                   onPressed: () {
-                    setState(() {
-                      questionBrain.nextQuestion();
-                    });
+                    checkAnswer(true);
                   },
                   style: TextButton.styleFrom(
                     backgroundColor: Colors.green,
@@ -81,7 +113,9 @@ class _QuizPageState extends State<QuizPage> {
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    checkAnswer(false);
+                  },
                   style: TextButton.styleFrom(
                     backgroundColor: Colors.red,
                   ),
@@ -99,7 +133,7 @@ class _QuizPageState extends State<QuizPage> {
         ),
         Expanded(
           child: Row(
-            //TODO: add dynamic list to track progress
+            children: scoreKeeper,
           ),
         )
       ],
