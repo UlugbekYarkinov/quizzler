@@ -38,6 +38,16 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
   int scoreCounter = 0;
+  final Icon rightIcon = const Icon(
+    Icons.check,
+    color: Colors.green,
+    size: 30.0,
+  );
+  final Icon wrongIcon = const Icon(
+    Icons.close,
+    color: Colors.red,
+    size: 30.0,
+  );
 
   void checkAnswer(bool pickedAnswer) {
     bool questionAnswer = questionBrain.getQuestionAnswer();
@@ -49,19 +59,9 @@ class _QuizPageState extends State<QuizPage> {
       } else {
         if(questionAnswer == pickedAnswer) {
           scoreCounter++;
-          scoreKeeper.add(
-              const Icon(
-                Icons.check,
-                color: Colors.green,
-              )
-          );
+          scoreKeeper.add(rightIcon);
         } else {
-          scoreKeeper.add(
-              const Icon(
-                Icons.close,
-                color: Colors.red,
-              )
-          );
+          scoreKeeper.add(wrongIcon);
         }
       }
       questionBrain.nextQuestion();
@@ -73,6 +73,26 @@ class _QuizPageState extends State<QuizPage> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
+        Expanded(child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 15.0),
+          child: Text(
+            'Question ${questionBrain.getQuestionNumber() + 1}/${questionBrain.getNumberOfQuestions()}',
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+            ),
+          ),
+        )),
+        Expanded(child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 15.0),
+          child: Text(
+            'Your score $scoreCounter',
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+            ),
+          ),
+        )),
         Expanded(
           flex: 4,
           child: Padding(
