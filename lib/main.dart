@@ -1,13 +1,11 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'quiz_brain.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:flare_flutter/flare_actor.dart';
 
 QuestionBrain questionBrain = QuestionBrain();
 
-void main() {
-  runApp(const Quizzler());
-}
+void main() => runApp(const Quizzler());
 
 class Quizzler extends StatelessWidget {
   const Quizzler({Key? key}) : super(key: key);
@@ -38,6 +36,7 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
   int scoreCounter = 0;
+  String animation = 'idle';
   final Icon rightIcon = const Icon(
     Icons.check,
     color: Colors.green,
@@ -52,8 +51,25 @@ class _QuizPageState extends State<QuizPage> {
   void checkAnswer(bool pickedAnswer) {
     bool questionAnswer = questionBrain.getQuestionAnswer();
 
-    setState(() { //TODO: add an alert message and dynamic bear
+    setState(() {
       if(questionBrain.isFinished()) {
+        scoreCounter++;
+        Alert(
+          context: context,
+          type: scoreCounter > 10 ? AlertType.success : AlertType.error,
+          title: scoreCounter > 10 ? 'WELL DONE' : 'MAY BE NEXT TIME?',
+          desc: "Your score is $scoreCounter",
+          buttons: [
+            DialogButton(
+              onPressed: () => Navigator.pop(context),
+              width: 120,
+              child: const Text(
+                "Start again?",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            )
+          ],
+        ).show();
         scoreKeeper = [];
         scoreCounter = 0;
       } else {
