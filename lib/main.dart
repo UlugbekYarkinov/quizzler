@@ -76,8 +76,10 @@ class _QuizPageState extends State<QuizPage> {
         if(questionAnswer == pickedAnswer) {
           scoreCounter++;
           scoreKeeper.add(rightIcon);
+          animation = 'success';
         } else {
           scoreKeeper.add(wrongIcon);
+          animation = 'fail';
         }
       }
       questionBrain.nextQuestion();
@@ -89,6 +91,18 @@ class _QuizPageState extends State<QuizPage> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
+        CircleAvatar(
+          radius: 150,
+          backgroundColor: Colors.white,
+          child: ClipOval(
+            child: FlareActor(
+              'assets/teddy_test.flr',
+              alignment: Alignment.center,
+              fit: BoxFit.fitWidth,
+              animation: animation,
+            ),
+          ),
+        ),
         Expanded(child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 15.0),
           child: Text(
