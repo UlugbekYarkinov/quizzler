@@ -52,7 +52,7 @@ class _QuizPageState extends State<QuizPage> {
   void checkAnswer(bool pickedAnswer) {
     bool questionAnswer = questionBrain.getQuestionAnswer();
 
-    setState(() {
+    setState(() { //TODO: add an alert message and dynamic bear
       if(questionBrain.isFinished()) {
         scoreKeeper = [];
         scoreCounter = 0;
@@ -77,16 +77,6 @@ class _QuizPageState extends State<QuizPage> {
           padding: const EdgeInsets.symmetric(vertical: 15.0),
           child: Text(
             'Question ${questionBrain.getQuestionNumber() + 1}/${questionBrain.getNumberOfQuestions()}',
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-            ),
-          ),
-        )),
-        Expanded(child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 15.0),
-          child: Text(
-            'Your score $scoreCounter',
             style: const TextStyle(
               color: Colors.white,
               fontSize: 20,
